@@ -47,7 +47,9 @@ handleSubmit = (event) => {
     //store id in variable
     const inputId = inputArr[4];
     
-    this.getAnswerBody(inputId)
+    //step5: call api, to get the question
+    //store the result in state
+    this.getQuestionTitle(inputId)
         .then((title) => {
             this.setState({
                 id: inputId,
@@ -55,6 +57,8 @@ handleSubmit = (event) => {
             });
         });
     
+    //step6: call api, to get the answer
+     //store the result in state
     this.getAnswerBody(inputId)
     .then((string) => {
         this.setState({
@@ -64,6 +68,9 @@ handleSubmit = (event) => {
     });
 }
 
+// Step3: call API with the id from user input
+//questions api is different from answers api, so it should be called seperately.
+//.title is where the questions body stored 
     getQuestionTitle = (id) => {
         // https://api.stackexchange.com/2.2/questions/1026069/answers?site=stackoverflow&filter=withbody&sort=votes
         return axios({
@@ -81,8 +88,9 @@ handleSubmit = (event) => {
             });
     }
 
-//step3: axios
+//step4: call API tp get the answer related to the target question
 //passing the id come from submit function into API call function, to get the highest voted answer from target question
+//.body_markdown is where the answers stored.
     getAnswerBody = (id) => {
     // https://api.stackexchange.com/2.2/questions/1026069/answers?site=stackoverflow&filter=withbody&sort=votes
         return axios({
@@ -100,7 +108,7 @@ handleSubmit = (event) => {
         });
     }
 
-//step4: print the result on page, to let user to confirm result, click confirm button, send the data from API to firebase
+//step7: print the result on page, to let user to confirm result, click confirm button, send the data from state to firebase
     handleConfirm = (event) => {
         event.preventDefault();
         const dbRef = firebase.database().ref();
@@ -108,6 +116,7 @@ handleSubmit = (event) => {
             question: this.state.question,
             answer: this.state.answer
         })
+        //clear state
         this.setState({
             id: '',
             question: '',
@@ -116,7 +125,7 @@ handleSubmit = (event) => {
     }
 
     render(){
-        // step5: take user input from input, and submit input data with submit buttom
+        // step8: take user input, and submit input data with submit buttom
         // call API with userinput.
         // print the result on page
         return(
