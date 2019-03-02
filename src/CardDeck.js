@@ -7,7 +7,9 @@ import './CardDeck.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBackward } from '@fortawesome/free-solid-svg-icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 library.add(faBackward)
+library.add(faTimes)
 
 class CardDeck extends Component {
     constructor(){
@@ -26,14 +28,17 @@ class CardDeck extends Component {
             const cards = [];
             const keys = [];
             const data = res.val();
-            // push into state
-            for(let key in data){
-                console.log(key);
-                cards.push({
-                    question: data[key].question,
-                    answer: data[key].answer,
-                })
-                keys.push(key);
+            if(!data){
+                return <div />;
+            }else{
+                // push into state
+                for(let key in data){
+                    cards.push({
+                        question: data[key].question,
+                        answer: data[key].answer,
+                    })
+                    keys.push(key);
+                }
             }
 
             //step3: randomize cards, choose only one card to store in state, which is used to print page when renders
@@ -61,7 +66,12 @@ class CardDeck extends Component {
         if(this.state.cards.length > 2){
             this.setState({
                 randomCard: this.randomizeCard(this.state.cards),
+                flipped: false
             });
+        } else if (this.state.cards.length === 1){
+            alert('Sorry, you only have one card now.')
+        } else {
+            alert('Sorry, you have no card to show, please add some new and come back to check them out.')
         }
     }
 
@@ -72,27 +82,33 @@ class CardDeck extends Component {
         let randomCard = this.state.randomCard;
         let cardIndex = cards.indexOf(randomCard);
         let cardId = this.state.keys[cardIndex];
-        
-        const dbRef = firebase.database().ref(cardId);
-        dbRef.remove();
+
+        if(cards.length < 1){
+            alert("Sorry, you have no cards to delete");
+        }else{
+            const dbRef = firebase.database().ref(cardId);
+            dbRef.remove();
+        }
     }
 
     // step6：print the card on page
     render(){
+        // if(!this.state.randomCard) return <div />
         return(
             <div className="cardDeck">
+
                 <h1>Click the <span>card</span> to check the answer</h1>
                 <div className="flashCard">
-
                 <Flipcard flipped={this.state.flipped} onClick={e => this.setState({ flipped: !this.state.flipped })}>
                     <ReactMarkdown source={this.state.randomCard.question} />
                     <ReactMarkdown source={this.state.randomCard.answer} />
                 </Flipcard>
-                
-                <button className="nextButton" onClick={this.handleSubmit}>Next</button>
-                <button className="deleteButton" onClick={this.handleDelete}>Delete this card</button>
-                <button className="backButton" onClick={this.props.onBack}>Back <FontAwesomeIcon icon="backward" /></button>
                 </div>
+                <div className="buttonContainer">
+                    <button className="nextButton" onClick={this.handleSubmit}>Next</button>
+                    <button className="deleteButton" onClick={this.handleDelete}>Delete this card <FontAwesomeIcon icon="times" /></button>
+                </div>
+                <button className="backButton" onClick={this.props.onBack}>Back <FontAwesomeIcon icon="backward" /></button>
 
             </div>
         )

@@ -240,6 +240,12 @@ h1 span {
     font-weight: bolder;
 }
 
+p,
+input {
+    font-family: 'Roboto', sans-serif;
+    line-height: 50px;
+}
+
 button {
     font-family: 'Roboto', sans-serif;
     font-size: 1.5rem;
@@ -250,6 +256,15 @@ button {
     background-color: rgb(0, 0, 0, 0.5);
     color: tomato;
     border: 1px solid tomato;
+}
+
+svg {
+    color: white;
+}
+
+code {
+    background-color: rgba(255, 255, 255, 0.7);
+    color: darkblue;
 }
 
 .buttonContainer {

@@ -18,7 +18,8 @@ class GetInput extends Component{
             validInput: true,
             id: '',
             question: '',
-            answer: ''
+            answer: '',
+            textareaView: false,
         };
     }
 
@@ -55,6 +56,9 @@ handleSubmit = (event) => {
                 id: inputId,
                 question: title
             });
+        })
+        .catch(() => {
+            alert('Sorry, you input is invalid, please try to copy paste your link again.' );
         });
     
     //step6: call api, to get the answer
@@ -65,6 +69,9 @@ handleSubmit = (event) => {
             answer: string,
             url: ''
         });
+    })
+    .catch((error) => {
+        console.log(error);
     });
 }
 
@@ -112,10 +119,15 @@ handleSubmit = (event) => {
     handleConfirm = (event) => {
         event.preventDefault();
         const dbRef = firebase.database().ref();
-        dbRef.push({
-            question: this.state.question,
-            answer: this.state.answer
-        })
+
+        if(this.state.question){
+            dbRef.push({
+                question: this.state.question,
+                answer: this.state.answer
+            })
+        }else{
+            alert('Please paste your link and retrieve answer first!');
+        }
         //clear state
         this.setState({
             id: '',
@@ -124,13 +136,36 @@ handleSubmit = (event) => {
         })
     }
 
+    // step8: make the answer editable
+    handleEdit = () => {
+        this.setState({
+            textareaView: true
+        })
+    }
+
+    // step9: when user click confirm button, set answer's state
+    handleTextChange = (event) => {
+        const userText = event.target.value;
+        
+        this.setState({
+            answer: userText
+        })
+    }
+
+    handleConfirmEdit = () => {
+        this.setState({
+            textareaView: false,
+        })
+    }
+
+
     render(){
-        // step8: take user input, and submit input data with submit buttom
+        // step10: take user input, and submit input data with submit buttom
         // call API with userinput.
         // print the result on page
         return(
             <div className="getInput">
-                <h1>Copy paste your stack<span>overflow</span> link here</h1>
+                <h1>Copy and paste your stack<span>overflow</span> link here</h1>
                 <form action="submit" onSubmit={this.handleSubmit}>
                     <input type="text" name="question" placeholder='Please place stackoverflow url' onChange={this.handleChange} value={this.state.url}/>
                     <button className="showButton" type="submit">{'Show Q&A'}</button>
@@ -142,8 +177,17 @@ handleSubmit = (event) => {
                             <div className="print">
                                 <p className="title">Question: </p>
                                 <ReactMarkdown source={this.state.question} />
+
                                 <p className="title">Answer: </p>
-                                <ReactMarkdown source={this.state.answer} />
+                                <div className="answerContainer">
+                                    <div className="buttonContainer">
+                                        <button className="editButton" onClick={this.handleEdit}>Edit</button>
+                                        <button className="confirmEditbutton" onClick={this.handleConfirmEdit}>Confirm</button>
+                                    </div>
+                                    {this.state.textareaView?
+                                        <textarea type="text" name="editAnswer" cols="30" rows="10" onChange={this.handleTextChange}>{this.state.answer}</textarea>
+                                    : <ReactMarkdown source={this.state.answer} />}
+                                </div>
                             </div>
                             ) : null
                     }

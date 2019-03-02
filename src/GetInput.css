@@ -273,6 +273,22 @@ section button {
     font-weight: bolder;
 }
 
+textarea {
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+    color: black;
+}
+
+.answerContainer .buttonContainer {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+}
+
+.answerContainer .buttonContainer button {
+    margin-right: 2%;
+}
+
 @media only screen and (max-width: 640px) {
     body {
         display: flex;
@@ -299,7 +315,11 @@ section button {
 }
 
 @media only screen and (max-width: 560px) {
-    form input {
+    form input,
+    .print {
+        font-size: 1rem;
+    }
+    .getInput button {
         font-size: 1rem;
     }
 }
