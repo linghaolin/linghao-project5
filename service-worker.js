@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/stackoverflow-flashcards/precache-manifest.99f1b2279ac0db3dd6040fe62b3f98ef.js"
+  "/linghao-project5/precache-manifest.492992143ef8074e9e3aa910353b1ae7.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/stackoverflow-flashcards/index.html", {
+workbox.routing.registerNavigationRoute("/linghao-project5/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
