@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "7fd417e2c57c81e6046c",
-    "url": "/stackoverflow-flashcards/static/css/main.bd30f174.chunk.css"
+    "revision": "00729889050a8027bcd2",
+    "url": "/stackoverflow-flashcards/static/css/main.43966138.chunk.css"
   },
   {
-    "revision": "7fd417e2c57c81e6046c",
-    "url": "/stackoverflow-flashcards/static/js/main.7fd417e2.chunk.js"
+    "revision": "00729889050a8027bcd2",
+    "url": "/stackoverflow-flashcards/static/js/main.00729889.chunk.js"
   },
   {
     "revision": "2f85e1c6e29433cd85be",
@@ -32,7 +32,7 @@ self.__precacheManifest = [
     "url": "/stackoverflow-flashcards/static/media/cardDeckBackground.1feb15a7.jpg"
   },
   {
-    "revision": "fbdbdd128251fe8cad9ae833260c93c3",
+    "revision": "6041710cc8f85fc7debc0544736541d5",
     "url": "/stackoverflow-flashcards/index.html"
   }
 ];
