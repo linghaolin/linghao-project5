@@ -40,7 +40,7 @@ class App extends Component {
     //if the user click "my card" , go to card deck.
     //if the user click "add new" , go to new input page.
     if(this.state.view === 'submit'){
-      return (<GetInput onBack={this.showOriginal}/>);
+      return (<GetInput onBack={this.showOriginal} onSwitch={this.showDeck}/>);
     } else if (this.state.view === 'deck'){
       return(<CardDeck onBack={this.showOriginal}/>);
     }else return(

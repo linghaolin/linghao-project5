@@ -192,6 +192,7 @@ handleSubmit = (event) => {
                             ) : null
                     }
                     <button className="confirmButton" onClick={this.handleConfirm}>Add to my card deck! <FontAwesomeIcon icon="plus" /></button>
+                    <button className="switchButton" onClick={this.props.onSwitch}>Check out my card deck</button>
                 </section>
 
                 <button className="backButton" onClick={this.props.onBack}>Back <FontAwesomeIcon icon="backward" /></button>
